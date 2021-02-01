@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 const sequelize = require('./database/db');
-const bodyParser = require ('body-parser');
-const jwt = require ('jsonwebtoken');
+// const bodyParser = require ('body-parser');
+// const jwt = require ('jsonwebtoken');
 
 
 // setting
@@ -23,6 +23,10 @@ app.use('/login', require('./rutas/login'));
 app.use('/usuarios', require('./rutas/usuario'));
 
 app.use('/platos', require('./rutas/platos'));
+
+app.use('/pedidos', require('./rutas/pedidos'));
+
+app.use('/itempedidos', require('./rutas/itempedidos'));
 
 //arrancar el servidor
 app.listen(PORT,() =>{
@@ -54,18 +58,4 @@ app.listen(PORT,() =>{
 //     const resultados = sequelize.query(query, { raw: true });
 
 //     console.log(resultados);
-// });
-
-
-// app.get('/',(req, res) =>{
-//     res.send('Hola mundo!');
-// });
-
-// app.get('/pedido/:id',(req, res) =>{
-//     res.send('Hola mundo!');
-// });
-
-// app.get('/error',(req, res) =>{
-//     res.status (500);
-//     res.json ({error:'Hubo un error :('});
 // });

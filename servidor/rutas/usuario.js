@@ -29,4 +29,13 @@ router.get('/:id', (req,res) => {
     })
 });
 
+// READ /usuarios/ Leer todos
+router.get('/', (req,res) => {
+    usuarios.findAll().then(post => {
+        res.json(post);
+    }).catch(err => {
+        res.json(err);
+    })
+});
+
 module.exports = router;
