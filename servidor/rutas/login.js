@@ -3,76 +3,35 @@ const router = express.Router();
 const bodyParser = require ('body-parser');
 const jwt = require ('jsonwebtoken');
 const config = require('../config');
-//const usuarios = require('../database/models/User');
-// const traerUsuarios = require('./usuario');
+const usuarios = require('../database/models/User');
 
 router.use(bodyParser.json());
 
-
-// Obtenerlo el listado de usuarios desde aca
-// function obtenerUsuarios(){
-//     const usuarios = fetch('http://127.0.0.1:3000/usuarios')
-//         .then(response => {
-//             return response.json();
-//         })
-//         .then(data => {
-//             return data;
-//         })
-//         .catch(error => {
-//             return error;
-//         });
-// };
-
-// obtenerUsuarios();
-
-
-// Traerlo segun calculado en Usuario.js
-// console.log (traerUsuarios.listadoUsuarios());
-
-const usuarios = [
-    {
-        id: "1",
-        usuario: "admin",
-        pass: "123456",
-        rol: "ADMIN"  
-    },
-    {
-        id: "2",
-        usuario: "user",
-        pass: "123456",
-        rol: "USUARIO"  
-    }
-]
-
 // VALIDAR PASS
-
-function validarUsuarioPass (usuario, pass) {
-    const filtrarUsuario = usuarios.filter(fila => fila.usuario === usuario && fila.pass === pass)
-    console.log(typeof filtrarUsuario);
-    if (!filtrarUsuario){
-        return false;
-    }
-    return filtrarUsuario;
-};
 
 router.post('/', (req, res) => {
     const { usuario, pass } = req.body;
-    const validado = validarUsuarioPass (usuario, pass);
-    if (!validado) {
-        res.json({error: 'No existe el usuario o la contraseña es incorrecta'});
-        return;
-    }
-    
-    const token = jwt.sign({
-        validado
-    }, config.clave.claveToken);
+    usuarios.findAll().then(todosUsuarios => {
+        const validado = todosUsuarios.filter(fila => fila.username === usuario && fila.pass === pass);
+        console.log(validado);
+        if (!validado) {
+            res.json({error: 'No existe el usuario o la contraseña es incorrecta'});
+            return;
+        }
 
-    res.json({ token })
+        const token = jwt.sign({
+            validado
+        }, config.clave.claveToken);
+
+        res.json({ token })
+        
+        }).catch(err => {
+            res.json(err);
+        });
 });
 
 const auntenticarUsuario = (req, res, next) => {
     try {
-        //const token = req.headers.authorization.split(' ')[1];
         const token = req.headers.authorization;
         const verificarToken = jwt.verify(token, config.clave.claveToken);
         if (verificarToken){
@@ -88,7 +47,6 @@ const auntenticarUsuario = (req, res, next) => {
 
 const auntenticarAdmin = (req, res, next) => {
     try {
-        //const token = req.headers.authorization.split(' ')[1];
         const token = req.headers.authorization;
         const verificarToken = jwt.verify(token, config.clave.claveToken);
         if (verificarToken){
