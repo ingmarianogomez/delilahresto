@@ -2,12 +2,14 @@ const express = require ('express');
 const router = express.Router();
 const plato = require('../database/models/plato');
 
+const login = require('./login');
+
 // router.get('/', (req ,res ) =>{
 //     res.send("Prueba de conexion platos"); 
 // });
 
 // CREATE
-router.post('/', (req,res) =>{
+router.post('/', login.auntenticarAdmin, (req,res) =>{
     plato.create({
         id: req.body.id,
         name: req.body.name,
@@ -21,7 +23,7 @@ router.post('/', (req,res) =>{
 });
 
 // READ /platos/:id
-router.get('/:id', (req,res) => {
+router.get('/:id', login.auntenticarUsuario,(req,res) => {
     plato.findByPk(req.params.id).then(post => {
         res.json(post);
     }).catch(err => {
@@ -30,7 +32,7 @@ router.get('/:id', (req,res) => {
 });
 
 // READ /platos/ Leer todos
-router.get('/', (req,res) => {
+router.get('/', login.auntenticarUsuario, (req,res) => {
     plato.findAll().then(post => {
         res.json(post);
     }).catch(err => {
@@ -39,7 +41,7 @@ router.get('/', (req,res) => {
 });
 
 // UPDATE /platos/:id
-router.patch('/:id', (req,res) => {
+router.patch('/:id', login.auntenticarAdmin, (req,res) => {
     plato.update({
         id: req.body.id,
         name: req.body.name,
@@ -57,7 +59,7 @@ router.patch('/:id', (req,res) => {
 });
 
 // DELETE /platos/:id
-router.delete('/:id', (req,res) => {
+router.delete('/:id', login.auntenticarAdmin, (req,res) => {
     plato.destroy({
         where: {
             id: req.params.id

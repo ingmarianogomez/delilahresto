@@ -1,13 +1,14 @@
 const express = require ('express');
 const router = express.Router();
-const pedido = require('../database/models/pedido')
+const pedido = require('../database/models/pedido');
+const login = require('./login');
 
 // router.get('/', (req ,res ) =>{
 //     res.send("Prueba de conexion platos"); 
 // });
 
 // CREATE
-router.post('/', (req,res) =>{
+router.post('/',login.auntenticarUsuario ,(req,res) =>{
     pedido.create({
         id: req.body.id,
         estado: req.body.estado,
@@ -31,7 +32,7 @@ router.get('/:id', (req,res) => {
 });
 
 // READ /pedidos/ Leer todos
-router.get('/', (req,res) => {
+router.get('/', login.auntenticarAdmin, (req,res) => {
     pedido.findAll().then(post => {
         res.json(post);
     }).catch(err => {
@@ -40,7 +41,7 @@ router.get('/', (req,res) => {
 });
 
 // UPDATE /pedidos/:id
-router.patch('/:id', (req,res) => {
+router.patch('/:id', login.auntenticarAdmin,(req,res) => {
     pedido.update({
         id: req.body.id,
         estado: req.body.estado,
@@ -59,7 +60,7 @@ router.patch('/:id', (req,res) => {
 });
 
 // DELETE /pedidos/:id
-router.delete('/:id', (req,res) => {
+router.delete('/:id', login.auntenticarAdmin, (req,res) => {
     pedido.destroy({
         where: {
             id: req.params.id

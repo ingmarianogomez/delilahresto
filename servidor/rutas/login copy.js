@@ -3,7 +3,7 @@ const router = express.Router();
 const bodyParser = require ('body-parser');
 const jwt = require ('jsonwebtoken');
 const config = require('../config');
-//const usuarios = require('../database/models/User');
+const usuarios = require('../database/models/User');
 // const traerUsuarios = require('./usuario');
 
 router.use(bodyParser.json());
@@ -47,27 +47,41 @@ const usuarios = [
 // VALIDAR PASS
 
 function validarUsuarioPass (usuario, pass) {
-    const filtrarUsuario = usuarios.filter(fila => fila.usuario === usuario && fila.pass === pass)
-    console.log(typeof filtrarUsuario);
-    if (!filtrarUsuario){
-        return false;
-    }
-    return filtrarUsuario;
+    usuarios.findAll(req.params.id).then(todosUsuarios => {
+        const filtrarUsuario = todosUsuarios.filter(fila => fila.usuario === usuario && fila.pass === pass);    
+            res.json(post);
+        
+        if (!filtrarUsuario){
+            return false;
+        }
+//    return filtrarUsuario;
+        }).catch(err => {
+            res.json(err);
+        });
 };
+
+
 
 router.post('/', (req, res) => {
     const { usuario, pass } = req.body;
-    const validado = validarUsuarioPass (usuario, pass);
-    if (!validado) {
-        res.json({error: 'No existe el usuario o la contraseña es incorrecta'});
-        return;
-    }
-    
-    const token = jwt.sign({
-        validado
-    }, config.clave.claveToken);
+    //const validado = validarUsuarioPass (usuario, pass);
+    usuarios.findAll().then(todosUsuarios => {
+        const validado = todosUsuarios.filter(fila => fila.usuario === usuario && fila.pass === pass);
+        console.log(validado);
+        if (!validado) {
+            res.json({error: 'No existe el usuario o la contraseña es incorrecta'});
+            return;
+        }
 
-    res.json({ token })
+        const token = jwt.sign({
+            validado
+        }, config.clave.claveToken);
+
+        res.json({ token })
+        
+        }).catch(err => {
+            res.json(err);
+        });
 });
 
 const auntenticarUsuario = (req, res, next) => {
@@ -99,7 +113,7 @@ const auntenticarAdmin = (req, res, next) => {
             }else{
                 res.json({error: 'Debes ser ADMIN para realizar esta accion'})
             }
-        }
+        }11
     }catch (err){
         res.json({error: 'Error al validar usuario'});
     }

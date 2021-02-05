@@ -1,13 +1,14 @@
 const express = require ('express');
 const router = express.Router();
 const itempedido = require('../database/models/itempedido')
+const login = require('./login');
 
 // router.get('/', (req ,res ) =>{
 //     res.send("Prueba de conexion platos"); 
 // });
 
 // CREATE
-router.post('/', (req,res) =>{
+router.post('/', login.auntenticarUsuario, (req,res) =>{
     itempedido.create({
         id: req.body.id,
         pedido_fk: req.body.pedido_fk,
@@ -21,7 +22,7 @@ router.post('/', (req,res) =>{
 });
 
 // READ /itempedido/:id
-router.get('/:id', (req,res) => {
+router.get('/:id',(req,res) => {
     itempedido.findByPk(req.params.id).then(post => {
         res.json(post);
     }).catch(err => {
@@ -30,7 +31,7 @@ router.get('/:id', (req,res) => {
 });
 
 // READ /itempedido/ Leer todos
-router.get('/', (req,res) => {
+router.get('/', login.auntenticarAdmin, (req,res) => {
     itempedido.findAll().then(post => {
         res.json(post);
     }).catch(err => {
@@ -39,7 +40,7 @@ router.get('/', (req,res) => {
 });
 
 // UPDATE /itempedido/:id
-router.patch('/:id', (req,res) => {
+router.patch('/:id', login.auntenticarAdmin, (req,res) => {
     itempedido.update({
         id: req.body.id,
         pedido_fk: req.body.pedido_fk,
@@ -57,7 +58,7 @@ router.patch('/:id', (req,res) => {
 });
 
 // DELETE /itempedido/:id
-router.delete('/:id', (req,res) => {
+router.delete('/:id', login.auntenticarAdmin, (req,res) => {
     itempedido.destroy({
         where: {
             id: req.params.id

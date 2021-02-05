@@ -1,12 +1,14 @@
 const express = require('express');
 const app = express();
 const sequelize = require('./database/db');
-// const bodyParser = require ('body-parser');
+const bodyParser = require ('body-parser');
 // const jwt = require ('jsonwebtoken');
-
 
 // setting
 const PORT = process.env.PORT || 3000;
+
+//No estoy seguro para que usarlo aca
+app.use(bodyParser.json());
 
 //Middleware
 //Para poder rellenar el req.body
@@ -18,7 +20,7 @@ app.get('/',(req, res) =>{
     res.send('Hola mundo!');
 });
 
-app.use('/login', require('./rutas/login'));
+app.use('/login', require('./rutas/login').router);
 
 app.use('/usuarios', require('./rutas/usuario'));
 
