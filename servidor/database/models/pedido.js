@@ -1,5 +1,7 @@
 const { Model, DataTypes } = require ('sequelize');
 const sequelize = require ('../db');
+const itempedido = require ('./itempedido');
+const Users = require('./User');
 
 class pedido extends Model {}
 
@@ -16,15 +18,15 @@ pedido.init({
     //     timestamps: true
     // },
     formaDePago: DataTypes.STRING,
-    usuario_fk: {
-        type: DataTypes.NUMBER
-        // foreingKey: true
-    }
+    usuario_fk: DataTypes.NUMBER 
 },{
     sequelize,
     timestamps: false,
     tableName: 'pedido',
     modelName: 'pedido'
-})
+});
+
+pedido.belongsTo(Users,{ foreignKey: "usuario_fk", targetKey:"id", as: "usuario"});
+pedido.hasMany(itempedido,{ foreignKey: "pedido_fk", targetKey:"id", as: "itemspedido"});
 
 module.exports = pedido;
