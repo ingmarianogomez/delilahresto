@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // rutas
 app.get('/',(req, res) =>{
-    res.send('Hola mundo!');
+    res.send('Bienvenido a DelilahResto, favor loguearse en /login');
 });
 
 app.use('/login', require('./rutas/login').router);

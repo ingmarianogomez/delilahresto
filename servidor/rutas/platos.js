@@ -1,12 +1,8 @@
 const express = require ('express');
 const router = express.Router();
 const plato = require('../database/models/plato');
-
 const login = require('./login');
 
-// router.get('/', (req ,res ) =>{
-//     res.send("Prueba de conexion platos"); 
-// });
 
 // CREATE
 router.post('/', login.auntenticarAdmin, (req,res) =>{
@@ -18,6 +14,7 @@ router.post('/', login.auntenticarAdmin, (req,res) =>{
     }).then(post => {
         res.json(post);
     }).catch(err => {
+        res.status(500);
         res.json(err);
     })
 });
@@ -27,6 +24,7 @@ router.get('/:id', login.auntenticarUsuario,(req,res) => {
     plato.findByPk(req.params.id).then(post => {
         res.json(post);
     }).catch(err => {
+        res.status(500);
         res.json(err);
     })
 });
@@ -36,6 +34,7 @@ router.get('/', login.auntenticarUsuario, (req,res) => {
     plato.findAll().then(post => {
         res.json(post);
     }).catch(err => {
+        res.status(500);
         res.json(err);
     })
 });
@@ -54,6 +53,7 @@ router.patch('/:id', login.auntenticarAdmin, (req,res) => {
     }).then(result => {
         res.json(result);
     }).catch(err => {
+        res.status(500);
         res.json(err);
     })
 });
@@ -67,6 +67,7 @@ router.delete('/:id', login.auntenticarAdmin, (req,res) => {
     }).then(result => {
         res.json(result);
     }).catch(err => {
+        res.status(500);
         res.json(err);
     })
 });

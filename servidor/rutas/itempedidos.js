@@ -17,24 +17,28 @@ router.post('/', login.auntenticarUsuario, (req,res) =>{
     }).then(post => {
         res.json(post);
     }).catch(err => {
+        res.status(500);
         res.json(err);
     })
 });
 
 // READ /itempedido/:id
-router.get('/:id',(req,res) => {
+router.get('/:id', login.auntenticarAdmin,(req,res) => {
     itempedido.findByPk(req.params.id).then(post => {
         res.json(post);
     }).catch(err => {
+        res.status(500);
         res.json(err);
     })
 });
 
 // READ /itempedido/ Leer todos
 router.get('/', login.auntenticarAdmin, (req,res) => {
-    itempedido.findAll().then(post => {
+    itempedido.findAll()
+    .then(post => {
         res.json(post);
     }).catch(err => {
+        res.status(500);
         res.json(err);
     })
 });
@@ -53,6 +57,7 @@ router.patch('/:id', login.auntenticarAdmin, (req,res) => {
     }).then(result => {
         res.json(result);
     }).catch(err => {
+        res.status(500);
         res.json(err);
     })
 });
@@ -66,6 +71,7 @@ router.delete('/:id', login.auntenticarAdmin, (req,res) => {
     }).then(result => {
         res.json(result);
     }).catch(err => {
+        res.status(500);
         res.json(err);
     })
 });

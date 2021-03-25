@@ -5,7 +5,7 @@ const login = require('./login');
 
 
 // CREATE
-router.post('/', login.auntenticarAdmin, (req,res) =>{
+router.post('/', (req,res) =>{
     usuarios.create({
         id: req.body.id,
         username: req.body.username,
@@ -18,6 +18,7 @@ router.post('/', login.auntenticarAdmin, (req,res) =>{
     }).then(post => {
         res.json(post);
     }).catch(err => {
+        res.status(500);
         res.json(err);
     })
 });
@@ -32,15 +33,17 @@ router.get('/:id', login.auntenticarUsuario, (req,res) => {
             res.json(err);
         })
     } else {
+        res.status(401);
         res.json({error: 'Solo puede ver tus registros o ser un Admin'})
     }
 });
 
 // READ /usuarios/ Leer todos
-router.get('/', login.auntenticarAdmin,(req,res) => {
+router.get('/', login.auntenticarAdmin, (req,res) => {
     usuarios.findAll().then(post => {
         res.json(post);
     }).catch(err => {
+        res.status(500);
         res.json(err);
     })
 });
@@ -63,6 +66,7 @@ router.patch('/:id', login.auntenticarAdmin, (req,res) => {
     }).then(result => {
         res.json(result);
     }).catch(err => {
+        res.status(500);
         res.json(err);
     })
 });
