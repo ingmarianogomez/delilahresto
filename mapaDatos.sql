@@ -1,8 +1,15 @@
+
+
 -- CREAR LA BASE DE DATOS -- 
 
 CREATE DATABASE delilah_resto;
 
+
+
+
+
 -- CREAR TABLAS --
+
 
 -- CREAR TABLA USUARIO
 
@@ -23,7 +30,7 @@ CREATE TABLE platos(
     id INT PRIMARY KEY AUTO_INCREMENT,
     name varchar (256) NOT NULL,
     price DEC NOT NULL,
-    imagen varchar (256) -- Poner el SRC de la imagen
+    imagen varchar (256)
 )
 
 -- CREAR PEDIDOS

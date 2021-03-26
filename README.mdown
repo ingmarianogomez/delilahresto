@@ -1,0 +1,80 @@
+#Delilah Resto 
+
+El objetivos del proyecto es plantear una Backend de un restaurant de comidas pudiendo manejar usuarios, clientes, pedidos y platos.
+
+### Requisitos de Instalacion.
+
+Debemos tener instalado el *NodeJS* para poder ejecutar las, *XAMPP* para el manejo de las bases de datos y el *Postman* para una mejor experiencia en la prueba de la funcionalidades desarrolladas.
+
+## Pasos para el funcionamiento de la aplicación.
+
+**1)Descargar el Proyecto**
+Descargar el repositorio del siguiente link: https://github.com/ingmarianogomez/delilahresto
+
+**2)Chequear en el Panel de control del XAMPP** 
+Los modulos de Apache y MySQL se deben encuentrar encendidos
+
+**3)Crear la base de datos **
+Desde un navegador abrir http://localhost/phpmyadmin/index.php y ejecutar la sentencia SQL que figura en el *mapaDatos.sql* 
+correspondiente a la creacion de la base de datos.
+
+**4)Crear las tablas**
+Desde un navegador abrir http://localhost/phpmyadmin/index.php, dentro de la base de datos creadas en el punto 3, 
+ejecutar la sentencia SQL que figura en el *mapaDatos.sql* correspondiente a la creacion de las tablas correspondientes.
+
+**5)Instalar dependencias**
+Ejecutar desde la consola
+```bash
+
+npm install
+
+``` 
+
+**6)Chequear parametros de la base de datos**
+En caso de ser necesario ajustar los parametros de configuracion de la base de datos en el archivo \servidor\database\db.js
+
+**7)Iniciar el servidor**
+Ejecutar desde la consola
+```bash
+
+nodemon app.js
+
+``` 
+
+## Pasos para el funcionamiento de la aplicación.
+
+**Uso de la herramienta**
+Mediante Postman y utilizando como referencia la documentación de la API (https://app.swaggerhub.com/apis-docs/ingmarianogomez/delilahresto/1.0.0),
+realizar las operaciones sobre los distintos endpoint.
+
+
+**Importante**
+Para hacer uso pleno de toda la aplicación, es necesario crear los usuarios correspondientes, ya que la mayoria de los endpoint requieren autorización.
+Es importante tener un usuario con el "rol": "ADMIN", como se ve en el objeto ejemplo siguiente:
+
+``` console
+{
+        "username": "primeradmin",
+        "fullname": "",
+        "mail": "primeradmin@mail.com",
+        "phone": "",
+        "adress": "",
+        "pass": "pass",
+        "rol": "ADMIN"
+    	}
+```
+
+Es necesario que incluyas en el Headers la KEY:Authorization y VALUE:{token} generado en el login, para poder ingresar a los endpoint que lo requieran.
+
+
+### Tecnologias Utilizadas:
+
+-   Node.js
+
+-   MySQL
+
+-   Express
+
+-   Sequelize
+
+-   JWT
