@@ -8,21 +8,21 @@ Debemos tener instalado el *NodeJS*, *XAMPP* para el manejo de las bases de dato
 
 ## Pasos para el funcionamiento de la aplicación.
 
-**1)Descargar el Proyecto**
+**1)Descargar el Proyecto**<br>
 Descargar el repositorio del siguiente link: https://github.com/ingmarianogomez/delilahresto
 
-**2)Chequear en el Panel de control del XAMPP** 
+**2)Chequear en el Panel de control del XAMPP**<br>
 Los modulos de Apache y MySQL se deben encuentrar encendidos
 
-**3)Crear la base de datos **
+**3)Crear la base de datos**<br>
 Desde un navegador abrir http://localhost/phpmyadmin/index.php y ejecutar la sentencia SQL que figura en el *mapaDatos.sql* 
 correspondiente a la creacion de la base de datos.
 
-**4)Crear las tablas**
+**4)Crear las tablas**<br>
 Desde un navegador abrir http://localhost/phpmyadmin/index.php, dentro de la base de datos creadas en el punto 3, 
 ejecutar la sentencia SQL que figura en el *mapaDatos.sql* correspondiente a la creacion de las tablas correspondientes.
 
-**5)Instalar dependencias**
+**5)Instalar dependencias**<br>
 Ejecutar desde la consola
 ```bash
 
@@ -30,10 +30,10 @@ npm install
 
 ``` 
 
-**6)Chequear parametros de la base de datos**
+**6)Chequear parametros de la base de datos**<br>
 En caso de ser necesario ajustar los parametros de configuracion de la base de datos en el archivo \servidor\database\db.js
 
-**7)Iniciar el servidor**
+**7)Iniciar el servidor**<br>
 Ejecutar desde la consola
 ```bash
 
@@ -43,12 +43,12 @@ nodemon app.js
 
 ## Pasos para el funcionamiento de la aplicación.
 
-**Uso de la herramienta**
+**Uso de la herramienta**<br>
 Mediante Postman y utilizando como referencia la documentación de la API (https://app.swaggerhub.com/apis-docs/ingmarianogomez/delilahresto/1.0.0),
 realizar las operaciones sobre los distintos endpoint.
 
 
-**Importante**
+**Importante**<br>
 Para hacer uso pleno de toda la aplicación, es necesario crear los usuarios correspondientes, ya que la mayoria de los endpoint requieren autorización.
 Es importante tener un usuario con el "rol": "ADMIN", como se ve en el objeto ejemplo siguiente:
 
