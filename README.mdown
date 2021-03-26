@@ -1,10 +1,10 @@
-#Delilah Resto 
+# Delilah Resto 
 
 El objetivos del proyecto es plantear una Backend de un restaurant de comidas pudiendo manejar usuarios, clientes, pedidos y platos.
 
 ### Requisitos de Instalacion.
 
-Debemos tener instalado el *NodeJS* para poder ejecutar las, *XAMPP* para el manejo de las bases de datos y el *Postman* para una mejor experiencia en la prueba de la funcionalidades desarrolladas.
+Debemos tener instalado el *NodeJS*, *XAMPP* para el manejo de las bases de datos y el *Postman* para una mejor experiencia en la prueba de la funcionalidades desarrolladas.
 
 ## Pasos para el funcionamiento de la aplicación.
 
